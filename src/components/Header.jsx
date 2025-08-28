@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Header = () => {
+const Header = ({ onNavigate, currentScreen }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   // K-pop group images for carousel
@@ -43,15 +43,35 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         {/* Navigation */}
         <nav className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold text-gray-800">K-Quiz</h1>
+          <h1
+            className="text-2xl font-bold text-gray-800 cursor-pointer"
+            onClick={() => onNavigate("home")}
+          >
+            K-Quiz
+          </h1>
           <div className="space-x-6">
-            <button className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200">
+            <button
+              onClick={() => onNavigate("about")}
+              className={`text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 ${
+                currentScreen === "about" ? "underline font-bold" : ""
+              }`}
+            >
               About
             </button>
-            <button className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200">
+            <button
+              onClick={() => onNavigate("categories")}
+              className={`text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 ${
+                currentScreen === "categories" ? "underline font-bold" : ""
+              }`}
+            >
               Categories
             </button>
-            <button className="text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200">
+            <button
+              onClick={() => onNavigate("quiz")}
+              className={`text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 ${
+                currentScreen === "quiz" ? "underline font-bold" : ""
+              }`}
+            >
               Quizzes
             </button>
           </div>

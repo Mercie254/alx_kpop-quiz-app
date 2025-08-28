@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
+import CategorySection from './components/CategorySection';
+import AboutPage from './components/AboutPage';
 import questions from './data/questions';
 
 // Convert questions object to array format for easier handling
@@ -60,7 +62,7 @@ const HomeScreen = ({ onStartQuiz }) => {
 
 // Main App Component
 const App = () => {
-  const [currentScreen, setCurrentScreen] = useState('home'); // 'home', 'categories', 'quiz', 'score'
+  const [currentScreen, setCurrentScreen] = useState('home'); // 'home', 'about', 'categories', 'quiz', 'score'
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [quizData, setQuizData] = useState(null);
   const [scoreData, setScoreData] = useState(null);
@@ -68,6 +70,11 @@ const App = () => {
   // Convert questions and get categories
   const questionsArray = convertQuestionsToArray(questions);
   const categories = Object.keys(questions);
+
+  // Navigation handlers
+  const handleNavigate = (screen) => {
+    setCurrentScreen(screen);
+  };
 
   const handleStartQuiz = () => {
     setCurrentScreen('categories');
@@ -111,11 +118,25 @@ const App = () => {
 
   return (
     <div className="min-h-screen">
-      <Header />
+      <Header onNavigate={handleNavigate} currentScreen={currentScreen} />
       
       {currentScreen === 'home' && (
         <HomeScreen onStartQuiz={handleStartQuiz} />
-      )}     
+      )}
+
+      {currentScreen === 'about' && (
+        <AboutPage onGoHome={handleGoHome} onNavigate={handleNavigate} />
+      )}
+      
+      {currentScreen === 'categories' && (
+        <CategorySection
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategorySelect={handleCategorySelect}
+          onStartCategoryQuiz={handleStartCategoryQuiz}
+        />
+      )}
+      
     </div>
   );
 };
