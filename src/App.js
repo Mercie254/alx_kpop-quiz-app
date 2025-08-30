@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from './components/Header';
 import CategorySection from './components/CategorySection';
 import AboutPage from './components/AboutPage';
+import Quiz from './components/Quiz';
 import questions from './data/questions';
 
 // Convert questions object to array format for easier handling
