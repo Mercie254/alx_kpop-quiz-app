@@ -137,7 +137,15 @@ const App = () => {
           onStartCategoryQuiz={handleStartCategoryQuiz}
         />
       )}
-      
+
+      {currentScreen === 'quiz' && quizData && (
+        <Quiz 
+          questions={quizData} 
+          onComplete={handleQuizComplete}
+          onGoBack={handleGoBack}
+        />
+      )}
+
     </div>
   );
 };

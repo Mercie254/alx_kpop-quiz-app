@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import QuestionCard from './QuestionCard';
 
-const Quiz = ({ questions, onQuizComplete, onGoBack }) => {
+const Quiz = ({ questions, onGoBack, onGoHome }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [quizComplete, setQuizComplete] = useState(false);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     setSelectedAnswer(answers[currentQuestion] || null);
@@ -11,35 +14,46 @@ const Quiz = ({ questions, onQuizComplete, onGoBack }) => {
 
   const handleAnswerSelect = (answerIndex) => {
     setSelectedAnswer(answerIndex);
-    setAnswers(prev => ({
+    setAnswers((prev) => ({
       ...prev,
-      [currentQuestion]: answerIndex
+      [currentQuestion]: answerIndex,
     }));
   };
 
   const handleNext = () => {
     if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(prev => prev + 1);
+      setCurrentQuestion((prev) => prev + 1);
     } else {
       // Quiz completed
-      const score = questions.reduce((total, question, index) => {
+      const finalScore = questions.reduce((total, question, index) => {
         return total + (answers[index] === question.correct ? 1 : 0);
       }, 0);
-      
-      onQuizComplete({
-        score,
-        total: questions.length,
-        answers,
-        questions
-      });
+      setScore(finalScore);
+      setQuizComplete(true);
     }
   };
 
   const handlePrevious = () => {
     if (currentQuestion > 0) {
-      setCurrentQuestion(prev => prev - 1);
+      setCurrentQuestion((prev) => prev - 1);
     }
   };
+
+  if (quizComplete) {
+    return (
+      <ScoreBoard
+        score={score}
+        total={questions.length}
+        onPlayAgain={() => {
+          setAnswers({});
+          setCurrentQuestion(0);
+          setScore(0);
+          setQuizComplete(false);
+        }}
+        onGoHome={onGoHome}
+      />
+    );
+  }
 
   if (questions.length === 0) {
     return (
@@ -66,7 +80,7 @@ const Quiz = ({ questions, onQuizComplete, onGoBack }) => {
         questionNumber={currentQuestion + 1}
         totalQuestions={questions.length}
       />
-      
+
       {/* Navigation Controls */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200 p-4">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
