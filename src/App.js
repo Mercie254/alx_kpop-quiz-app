@@ -3,16 +3,17 @@ import Header from './components/Header';
 import CategorySection from './components/CategorySection';
 import AboutPage from './components/AboutPage';
 import Quiz from './components/Quiz';
+import ScoreBoard from './components/ScoreBoard';
 import questions from './data/questions';
 
-// Convert questions object to array format for easier handling
+
 const convertQuestionsToArray = (questionsObj) => {
   const questionsArray = [];
   let id = 1;
   
   Object.entries(questionsObj).forEach(([category, categoryQuestions]) => {
     categoryQuestions.forEach(q => {
-      // Find the correct answer index
+
       const correctIndex = q.options.findIndex(option => option === q.answer);
       
       questionsArray.push({
@@ -29,7 +30,6 @@ const convertQuestionsToArray = (questionsObj) => {
   return questionsArray;
 };
 
-// Helper function to assign images based on category
 const getImageForCategory = (category) => {
   const imageMap = {
     'General': 'images/bts.webp',
@@ -72,7 +72,6 @@ const App = () => {
   const questionsArray = convertQuestionsToArray(questions);
   const categories = Object.keys(questions);
 
-  // Navigation handlers
   const handleNavigate = (screen) => {
     setCurrentScreen(screen);
   };
@@ -146,6 +145,15 @@ const App = () => {
         />
       )}
 
+      {currentScreen === 'score' && scoreData && (
+        <ScoreBoard 
+          score={scoreData.score} 
+          total={scoreData.total}
+          results={scoreData.results}
+          onPlayAgain={handlePlayAgain}
+          onGoHome={handleGoHome}
+        />
+      )}
     </div>
   );
 };

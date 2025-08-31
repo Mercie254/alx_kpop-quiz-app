@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import QuestionCard from './QuestionCard';
+import ScoreBoard from './ScoreBoard';
 
 const Quiz = ({ questions, onGoBack, onGoHome }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -81,10 +82,9 @@ const Quiz = ({ questions, onGoBack, onGoHome }) => {
         totalQuestions={questions.length}
       />
 
-      {/* Navigation Controls */}
       <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-200 p-4">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          {/* Previous Button */}
+
           <button
             onClick={handlePrevious}
             disabled={currentQuestion === 0}
@@ -97,7 +97,6 @@ const Quiz = ({ questions, onGoBack, onGoHome }) => {
             Previous
           </button>
 
-          {/* Progress Info */}
           <div className="text-center">
             <p className="text-gray-600 font-medium">
               {Object.keys(answers).length} / {questions.length} answered
@@ -107,7 +106,6 @@ const Quiz = ({ questions, onGoBack, onGoHome }) => {
             </p>
           </div>
 
-          {/* Next/Finish Button */}
           <button
             onClick={handleNext}
             disabled={selectedAnswer === null}

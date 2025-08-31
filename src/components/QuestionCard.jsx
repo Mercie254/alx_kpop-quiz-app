@@ -24,7 +24,6 @@ const QuestionCard = ({ question, selectedAnswer, onAnswerSelect, questionNumber
           </div>
         </div>
 
-        {/* Current Question Section */}
         <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 mb-8 shadow-xl">
           <h3 className="text-2xl font-bold text-gray-800 mb-6">Current Question</h3>
           

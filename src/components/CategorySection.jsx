@@ -41,7 +41,7 @@ const CategorySection = ({ categories, selectedCategory, onCategorySelect, onSta
           </div>
           
           <div className="space-y-4">
-            {/* All Categories Option */}
+
             <button
               onClick={() => onStartCategoryQuiz('All')}
               className={`w-full p-6 rounded-2xl border-2 transition-all duration-200 flex items-center space-x-4 ${
@@ -59,7 +59,6 @@ const CategorySection = ({ categories, selectedCategory, onCategorySelect, onSta
               </div>
             </button>
 
-            {/* Individual Categories */}
             {categories.map(category => (
               <button
                 key={category}

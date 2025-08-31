@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const Header = ({ onNavigate, currentScreen }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
-  // K-pop group images for carousel
   const carouselImages = [
     { src: 'images/bts.webp', alt: 'BTS' },
     { src: 'images/BlackPink.webp', alt: 'BLACKPINK' },
@@ -15,7 +14,6 @@ const Header = ({ onNavigate, currentScreen }) => {
     { src: 'images/enhypen.jpg', alt: 'ENHYPEN' }
   ];
 
-  // Auto-advance carousel every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => 
@@ -105,7 +103,6 @@ const Header = ({ onNavigate, currentScreen }) => {
                 ))}
               </div>
 
-              {/* Navigation arrows */}
               <button
                 onClick={prevImage}
                 className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 hover:scale-110"
@@ -123,7 +120,6 @@ const Header = ({ onNavigate, currentScreen }) => {
                 </svg>
               </button>
 
-              {/* Dots indicator */}
               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
                 {carouselImages.map((_, index) => (
                   <button
@@ -139,7 +135,6 @@ const Header = ({ onNavigate, currentScreen }) => {
               </div>
             </div>
 
-            {/* Current group name */}
             <div className="text-center mt-3">
               <p className="text-gray-800 font-semibold">
                 {carouselImages[currentImageIndex].alt}
